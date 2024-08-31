@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafka-consumer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kafka-consumer
+  template:
+    metadata:
+      labels:
+        app: kafka-consumer
+    spec:
+      containers:
+      - name: kafka-consumer
+        image: himanshusharma89/kafka-consumer:latest # Replace with your Docker Hub image
+        ports:
+        - containerPort: 3000 # Adjust based on your app configuration
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafka-consumer-service
+spec:
+  type: ClusterIP
+  selector:
+    app: kafka-consumer
+  ports:
+  - protocol: TCP
+    port: 3000
+    targetPort: 3000

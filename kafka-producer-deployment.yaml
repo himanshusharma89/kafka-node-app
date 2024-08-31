@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafka-producer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kafka-producer
+  template:
+    metadata:
+      labels:
+        app: kafka-producer
+    spec:
+      containers:
+      - name: kafka-producer
+        image: himanshusharma89/kafka-producer:latest # Replace with your Docker Hub image
+        ports:
+        - containerPort: 3000 # Adjust based on your app configuration
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafka-producer-service
+spec:
+  type: ClusterIP
+  selector:
+    app: kafka-producer
+  ports:
+  - protocol: TCP
+    port: 3000
+    targetPort: 3000

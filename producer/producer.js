@@ -3,7 +3,7 @@ const { Kafka } = require('kafkajs');
 // Kafka configuration
 const kafka = new Kafka({
   clientId: 'producer-app',
-  brokers: ['kafka:9092'], // Adjust based on your cluster
+  brokers: ['kafka.default.svc.cluster.local:9092'], // Adjust based on your cluster
 });
 
 const producer = kafka.producer();
